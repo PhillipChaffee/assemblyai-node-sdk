@@ -145,4 +145,20 @@ export class TranscriptRequest {
    * Enable Automatic Transcript Highlights, can be `true` or `false`.
    */
   auto_highlights?: boolean;
+  /**
+   * Enable Automatic Language Detection, can be `true` or `false`.
+   *
+   * ---
+   *
+   * The **Automatic Language Detection** feature can identify the dominant language that’s spoken in an audio file, and route the file to the appropriate model for the detected language.
+   *
+   * **Note** - Automatic Language Detection supports detecting English, French, German, Italian, and Spanish currently. We will be adding support for more languages over time.
+   *
+   * To enable this feature, include the `language_detection` parameter with a value of `true` in your `POST` request when submitting a file for processing.
+   *
+   * If you know the language of the spoken audio in a file, you can specify that in your `POST` request as shown in the documentation for [Specifying a Language](/walkthroughs#specifying-a-language "null").
+   *
+   * **Heads Up** - In order to reliably identify the dominant language in a file, the model needs approximately 50 seconds of spoken audio in that language over the course of the audio file.
+   */
+  language_detection?: boolean;
 }
