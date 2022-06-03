@@ -42,14 +42,39 @@
  * If we get a non `2xx` response when we `POST` to your webhook URL, we'll retry the request 10 times, with a 10 second interval between each retry. After all 10 retries fail, we'll consider the webhook to be permanently failed.
  *
  * If we are unable to reach your webhook URL (usually caused by a timeout, or your server being offline), no retries will be attempted.
+ *
+ * Audio Redaction
+ * ---------------
+ *
+ * If a [`webhook_url`](/walkthroughs#using-webhooks "null") was provided in your `POST` request when submitting your audio file for transcription, we will send a `POST` to your `webhook_url` when the redacted audio is ready. The `POST` request headers and JSON body will look like this:
+ * ```
+ *     headers
+ *     ---
+ *     content-length: 79
+ *     accept-encoding: gzip, deflate
+ *     accept: *\/*
+ *     user-agent: python-requests/2.21.0
+ *     content-type: application/json
+ *
+ *     params
+ *     --
+ *     status: 'redacted_audio_ready'
+ *     redacted_audio_url: 'https://link-to-redacted-audio'
+ * ```
  */
 export class WebhookResponse {
   /**
    * The status of your transcription. `queued`, `processing`, `completed`, or `error`
+   * or
+   * The status of the redacted audio file. `redacted_audio_ready`
    */
   status?: string;
   /**
    * The unique identifier of your transcription.
    */
-  transcriptId?: string;
+  transcript_id?: string;
+  /**
+   * The link to the redacted audio file.
+   */
+  redacted_audio_url?: string;
 }
